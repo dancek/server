@@ -4722,7 +4722,7 @@ handler *mysql_create_frm_image(THD *thd, const LEX_CSTRING &db,
 
     if (create_info->tmp_table())
     {
-      my_error(ER_PARTITION_NO_TEMPORARY, MYF(0));
+      my_error(ER_FEATURE_NOT_SUPPORTED_WITH_PARTITIONING, MYF(0), "CREATE TEMPORARY TABLE");
       goto err;
     }
     if ((part_engine_type == partition_hton) &&
@@ -4848,7 +4848,8 @@ handler *mysql_create_frm_image(THD *thd, const LEX_CSTRING &db,
     {
       if (key->type == Key::FOREIGN_KEY)
       {
-        my_error(ER_FOREIGN_KEY_ON_PARTITIONED, MYF(0));
+        my_error(ER_FEATURE_NOT_SUPPORTED_WITH_PARTITIONING, MYF(0), 
+                 "FOREIGN KEY");
         goto err;
       }
     }
